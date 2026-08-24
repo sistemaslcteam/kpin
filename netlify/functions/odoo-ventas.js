@@ -45,12 +45,26 @@ exports.handler = async (event) => {
       return jsonResponse(200, { desde, hasta, vendedores: [] });
     }
 
-    // 3) Leemos los campos que nos interesan de esas órdenes
-    const orders = await odooCall(ODOO_URL, "object", "execute_kw", [
-      ODOO_DB, uid, ODOO_PASSWORD,
-      "sale.order", "read",
-      [orderIds, ["user_id", "amount_total", "margin", "partner_id"]],
-    ]);
+    // 3) Leemos los campos que nos interesan de esas órdenes.
+    //    'margin' solo existe si el módulo "Márgenes de venta" (sale_margin) está
+    //    activado en Odoo (Ventas > Configuración > Ajustes > Márgenes).
+    //    Si no está activo, seguimos sin margen en vez de tronar toda la función.
+    let orders;
+    let margenDisponible = true;
+    try {
+      orders = await odooCall(ODOO_URL, "object", "execute_kw", [
+        ODOO_DB, uid, ODOO_PASSWORD,
+        "sale.order", "read",
+        [orderIds, ["user_id", "amount_total", "margin", "partner_id"]],
+      ]);
+    } catch (e) {
+      margenDisponible = false;
+      orders = await odooCall(ODOO_URL, "object", "execute_kw", [
+        ODOO_DB, uid, ODOO_PASSWORD,
+        "sale.order", "read",
+        [orderIds, ["user_id", "amount_total", "partner_id"]],
+      ]);
+    }
 
     // 4) Agrupamos por vendedor (user_id)
     const porVendedor = {};
@@ -60,18 +74,21 @@ exports.handler = async (event) => {
         porVendedor[vendedor] = { nombre: vendedor, venta: 0, margen: 0, clientesUnicos: new Set() };
       }
       porVendedor[vendedor].venta += o.amount_total || 0;
-      porVendedor[vendedor].margen += o.margin || 0;
+      if (margenDisponible) porVendedor[vendedor].margen += o.margin || 0;
       if (o.partner_id) porVendedor[vendedor].clientesUnicos.add(o.partner_id[0]);
     }
 
     const vendedores = Object.values(porVendedor).map(v => ({
       nombre: v.nombre,
       venta: Math.round(v.venta),
-      margenPct: v.venta ? +((v.margen / v.venta) * 100).toFixed(1) : 0,
+      margenPct: margenDisponible && v.venta ? +((v.margen / v.venta) * 100).toFixed(1) : null,
       clientesUnicos: v.clientesUnicos.size,
     }));
 
-    return jsonResponse(200, { desde, hasta, vendedores });
+    return jsonResponse(200, {
+      desde, hasta, vendedores,
+      aviso: margenDisponible ? undefined : "El campo 'margin' no existe en este Odoo (módulo sale_margin no activado). Se regresó venta y clientes nuevos; el margen queda en null hasta activarlo.",
+    });
   } catch (err) {
     return jsonResponse(500, { error: "Error consultando Odoo", detalle: String(err) });
   }
