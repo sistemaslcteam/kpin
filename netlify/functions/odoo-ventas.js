@@ -5,14 +5,17 @@
 // Qué hace:
 //   1. Se autentica en Odoo por JSON-RPC con un usuario de solo lectura.
 //   2. Consulta las órdenes de venta confirmadas en el rango de fechas.
-//   3. Agrupa el total y el margen por vendedor.
-//   4. Regresa un JSON limpio, listo para pintar en la Torre de Control.
+//   3. Trae las líneas de esas órdenes (producto, cantidad, subtotal de venta).
+//   4. Trae el costo (standard_price) de cada producto involucrado.
+//   5. Calcula el margen = (venta - costo) / venta, por vendedor.
+//      Esto NO depende del módulo "Márgenes de venta" (sale_margin) — se calcula
+//      directo desde el costo estándar del producto, que sí existe en Odoo base.
 //
 // Variables de entorno que necesita (Netlify > Site settings > Environment variables):
-//   ODOO_URL       -> ej. https://pin.odoo.com
+//   ODOO_URL       -> ej. https://pinerp.odoo.com
 //   ODOO_DB        -> nombre de la base de datos de Odoo
 //   ODOO_USER      -> usuario de solo lectura dedicado a esta herramienta
-//   ODOO_PASSWORD  -> contraseña o API key de ese usuario
+//   ODOO_PASSWORD  -> API key de ese usuario
 
 exports.handler = async (event) => {
   try {
@@ -30,65 +33,75 @@ exports.handler = async (event) => {
     const uid = await odooCall(ODOO_URL, "common", "login", [ODOO_DB, ODOO_USER, ODOO_PASSWORD]);
     if (!uid) return jsonResponse(401, { error: "No se pudo autenticar en Odoo. Revisa usuario/contraseña." });
 
+    const exec = (model, method, args, kwargs) =>
+      odooCall(ODOO_URL, "object", "execute_kw", [ODOO_DB, uid, ODOO_PASSWORD, model, method, args, kwargs || {}]);
+
     // 2) Buscamos las órdenes de venta confirmadas en el rango de fechas
-    const orderIds = await odooCall(ODOO_URL, "object", "execute_kw", [
-      ODOO_DB, uid, ODOO_PASSWORD,
-      "sale.order", "search",
+    const orders = await exec(
+      "sale.order", "search_read",
       [[
         ["state", "in", ["sale", "done"]],
         ["date_order", ">=", `${desde} 00:00:00`],
         ["date_order", "<=", `${hasta} 23:59:59`],
       ]],
-    ]);
+      { fields: ["id", "user_id", "amount_total", "partner_id"] }
+    );
 
-    if (!orderIds.length) {
+    if (!orders.length) {
       return jsonResponse(200, { desde, hasta, vendedores: [] });
     }
 
-    // 3) Leemos los campos que nos interesan de esas órdenes.
-    //    'margin' solo existe si el módulo "Márgenes de venta" (sale_margin) está
-    //    activado en Odoo (Ventas > Configuración > Ajustes > Márgenes).
-    //    Si no está activo, seguimos sin margen en vez de tronar toda la función.
-    let orders;
-    let margenDisponible = true;
-    try {
-      orders = await odooCall(ODOO_URL, "object", "execute_kw", [
-        ODOO_DB, uid, ODOO_PASSWORD,
-        "sale.order", "read",
-        [orderIds, ["user_id", "amount_total", "margin", "partner_id"]],
-      ]);
-    } catch (e) {
-      margenDisponible = false;
-      orders = await odooCall(ODOO_URL, "object", "execute_kw", [
-        ODOO_DB, uid, ODOO_PASSWORD,
-        "sale.order", "read",
-        [orderIds, ["user_id", "amount_total", "partner_id"]],
-      ]);
-    }
+    const orderIds = orders.map(o => o.id);
+    const vendedorPorOrden = {};
+    orders.forEach(o => { vendedorPorOrden[o.id] = o.user_id ? o.user_id[1] : "Sin asignar"; });
 
-    // 4) Agrupamos por vendedor (user_id)
+    // 3) Líneas de esas órdenes: producto, cantidad y subtotal de venta
+    const lineas = await exec(
+      "sale.order.line", "search_read",
+      [[
+        ["order_id", "in", orderIds],
+        ["product_id", "!=", false],
+        ["display_type", "=", false], // excluye secciones/notas, que no son producto real
+      ]],
+      { fields: ["order_id", "product_id", "product_uom_qty", "price_subtotal"] }
+    );
+
+    // 4) Costo estándar de cada producto involucrado (una sola consulta, sin duplicados)
+    const productIds = [...new Set(lineas.map(l => l.product_id[0]))];
+    const productos = productIds.length
+      ? await exec("product.product", "read", [productIds], { fields: ["standard_price"] })
+      : [];
+    const costoPorProducto = {};
+    productos.forEach(p => { costoPorProducto[p.id] = p.standard_price || 0; });
+
+    // 5) Agregamos venta, costo y clientes por vendedor
     const porVendedor = {};
-    for (const o of orders) {
-      const vendedor = o.user_id ? o.user_id[1] : "Sin asignar";
-      if (!porVendedor[vendedor]) {
-        porVendedor[vendedor] = { nombre: vendedor, venta: 0, margen: 0, clientesUnicos: new Set() };
-      }
-      porVendedor[vendedor].venta += o.amount_total || 0;
-      if (margenDisponible) porVendedor[vendedor].margen += o.margin || 0;
-      if (o.partner_id) porVendedor[vendedor].clientesUnicos.add(o.partner_id[0]);
-    }
+    const asegurar = (nombre) => {
+      if (!porVendedor[nombre]) porVendedor[nombre] = { nombre, venta: 0, costo: 0, clientesUnicos: new Set() };
+      return porVendedor[nombre];
+    };
+
+    orders.forEach(o => {
+      const v = asegurar(vendedorPorOrden[o.id]);
+      if (o.partner_id) v.clientesUnicos.add(o.partner_id[0]);
+    });
+
+    lineas.forEach(l => {
+      const vendedor = vendedorPorOrden[l.order_id[0]];
+      const v = asegurar(vendedor);
+      const costoUnit = costoPorProducto[l.product_id[0]] || 0;
+      v.venta += l.price_subtotal || 0;
+      v.costo += costoUnit * (l.product_uom_qty || 0);
+    });
 
     const vendedores = Object.values(porVendedor).map(v => ({
       nombre: v.nombre,
       venta: Math.round(v.venta),
-      margenPct: margenDisponible && v.venta ? +((v.margen / v.venta) * 100).toFixed(1) : null,
+      margenPct: v.venta ? +(((v.venta - v.costo) / v.venta) * 100).toFixed(1) : null,
       clientesUnicos: v.clientesUnicos.size,
     }));
 
-    return jsonResponse(200, {
-      desde, hasta, vendedores,
-      aviso: margenDisponible ? undefined : "El campo 'margin' no existe en este Odoo (módulo sale_margin no activado). Se regresó venta y clientes nuevos; el margen queda en null hasta activarlo.",
-    });
+    return jsonResponse(200, { desde, hasta, vendedores });
   } catch (err) {
     return jsonResponse(500, { error: "Error consultando Odoo", detalle: String(err) });
   }
