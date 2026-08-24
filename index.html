@@ -214,11 +214,6 @@ const DATA = {
       pin: {
         label:"PIN", src:"Odoo PIN",
         people: [
-          { name:"Sallymari Bellman", role:"Gerencia Ventas", kpis:[
-            { t:"Meta de venta", v:"$505,000", tier:'g', bands:"Rojo <$400K · Amarillo $400–475K · Verde $500K · Superverde ≥$525K" },
-            { t:"Margen utilidad", v:"33.8%", tier:'g', bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar)" },
-            { t:"Quejas de cliente", v:"1/mes", tier:'g', bands:"Rojo 3/mes · Amarillo 2/mes · Verde 1/mes · Superverde 0" },
-          ]},
           { name:"Luis Cardona", role:"Vendedor", kpis:[
             { t:"Meta de venta", v:"$635,000", tier:'a', bands:"Rojo <$600K · Amarillo $620–649K · Verde $650K · Superverde ≥$660K" },
             { t:"Clientes nuevos", v:"5", tier:'g', bands:"Rojo 1 · Amarillo 3 · Verde 5 · Superverde ≥6" },
@@ -235,20 +230,15 @@ const DATA = {
         label:"TAC", src:"Dashboard de Ventas TAC",
         placeholder:true,
         people: [
-          { name:"Sallymari Bellman", role:"Pendiente: confirmar si vende para TAC y su meta real", kpis:[
-            { t:"Meta de venta", v:"$—", tier:'g', bands:"Pendiente: definir rangos Rojo/Amarillo/Verde/Superverde para TAC" },
-            { t:"Margen", v:"—%", tier:'g', bands:"Pendiente: definir meta de margen TAC" },
-            { t:"Clientes nuevos", v:"—", tier:'g', bands:"Pendiente: definir meta de clientes nuevos TAC" },
+          { name:"Sallymari Bellman", role:"Gerencia Ventas — confirmado: vende para TAC, sus cifras viven en Dashboard TAC, no en Odoo", kpis:[
+            { t:"Meta de venta", v:"$505,000", tier:'g', bands:"Rojo <$400K · Amarillo $400–475K · Verde $500K · Superverde ≥$525K (banda de tu Config; falta traer la cifra real desde Dashboard TAC)" },
+            { t:"Margen utilidad", v:"33.8%", tier:'g', bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar)" },
+            { t:"Quejas de cliente", v:"1/mes", tier:'g', bands:"Rojo 3/mes · Amarillo 2/mes · Verde 1/mes · Superverde 0" },
           ]},
-          { name:"Luis Cardona", role:"Pendiente: confirmar si vende para TAC y su meta real", kpis:[
+          { name:"Vendedor TAC — ejemplo", role:"Pendiente: nombre y meta reales de otros vendedores TAC", kpis:[
             { t:"Meta de venta", v:"$—", tier:'a', bands:"Pendiente: definir rangos Rojo/Amarillo/Verde/Superverde para TAC" },
             { t:"Margen", v:"—%", tier:'a', bands:"Pendiente: definir meta de margen TAC" },
             { t:"Clientes nuevos", v:"—", tier:'a', bands:"Pendiente: definir meta de clientes nuevos TAC" },
-          ]},
-          { name:"Mauro Mendoza", role:"Pendiente: confirmar si vende para TAC y su meta real", kpis:[
-            { t:"Meta de venta", v:"$—", tier:'g', bands:"Pendiente: definir rangos Rojo/Amarillo/Verde/Superverde para TAC" },
-            { t:"Margen", v:"—%", tier:'g', bands:"Pendiente: definir meta de margen TAC" },
-            { t:"Clientes nuevos", v:"—", tier:'g', bands:"Pendiente: definir meta de clientes nuevos TAC" },
           ]},
         ]
       }
@@ -403,7 +393,7 @@ function renderVendedores(){
       return `<button class="subtab ${k===activeVendGroup?'on':''}" onclick="setVendGroup('${k}')">${grp.label} <span class="cnt">${grp.people.length}</span></button>`;
     }).join("")}
   </div>`;
-  const note = g.placeholder ? `<div class="subgroup-note show">⚠️ Estos son marcadores de ejemplo. Faltan los nombres y metas reales del equipo de ventas TAC para completar esta sección — comparte esa info (igual que hiciste con el Excel de KPIs de PIN) y la conecto.</div>` : "";
+  const note = g.placeholder ? `<div class="subgroup-note show">⚠️ Sallymari Bellman ya está confirmada (vende para TAC, fuente: Dashboard TAC). Falta el resto del equipo de ventas TAC — comparte esos nombres y metas y los agrego igual que a ella.</div>` : "";
   return `${subtabs}${note}${renderFilterBar('vendedores')}${renderPeopleGrid(g.people, g.src)}`;
 }
 
