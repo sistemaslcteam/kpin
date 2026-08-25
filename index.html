@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Torre de Control · Indicadores PIN · TAC</title>
+<title>KPI'S · PIN · TAC</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -121,6 +121,7 @@ body{font-family:'Inter',sans-serif;background:var(--gy);color:var(--tx);font-si
 .mini .mtag{font-size:7.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-top:3px;display:inline-block;}
 .mini.mr .mv,.mini.mr .mtag{color:var(--rd);} .mini.ma .mv,.mini.ma .mtag{color:#b45309;}
 .mini.mg .mv,.mini.mg .mtag{color:var(--gd);} .mini.msg .mv,.mini.msg .mtag{color:var(--sg);}
+.mini.mx .mv,.mini.mx .mtag{color:var(--gy3);}
 .pc-src{margin-top:12px;font-size:9px;color:var(--gy3);text-transform:uppercase;letter-spacing:.04em;font-weight:600;}
 
 /* MODAL */
@@ -149,7 +150,7 @@ footer.note{margin-top:24px; font-size:10.5px; color:var(--gy3); line-height:1.6
     <img class="tac" src="data:image/png;base64,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" alt="TAC Global Solutions">
     <div class="lsep"></div>
     <div>
-      <div class="hdr-title">Torre de Control · Indicadores</div>
+      <div class="hdr-title">KPI'S</div>
       <div class="hdr-sub" id="hdrSub">—</div>
     </div>
   </div>
@@ -179,14 +180,13 @@ footer.note{margin-top:24px; font-size:10.5px; color:var(--gy3); line-height:1.6
 
 <div class="ov" id="modalInfo">
   <div class="md" onclick="event.stopPropagation()">
-    <h3>☁️ Cómo se conectará esta pantalla</h3>
-    <p>Hoy esta Torre de Control corre con datos de muestra para validar el formato. Así se vería conectada a lo que ya existe:</p>
+    <h3>☁️ Cómo está conectada esta pantalla</h3>
     <div class="steps">
-      1. Odoo entrega venta, margen y clientes nuevos por vendedor, por rango de fechas.<br>
-      2. El Dashboard TAC aporta el ranking y nivel de servicio.<br>
-      3. Inventario PIN aporta veracidad global y errores de surtido.<br>
-      4. El checklist digital de choferes aporta cumplimiento y multas.<br><br>
-      Los rangos Rojo/Amarillo/Verde/Superverde se leen directo de la hoja Config, así que si ahí se ajusta una meta, aquí se refleja sola.
+      ✅ <b>Vendedores PIN</b> — conectado a Odoo en vivo (venta, margen calculado por costo, clientes nuevos).<br>
+      ✅ <b>Vendedores TAC</b> — conectado al mismo archivo que ya llena el Dashboard TAC al subir un Excel.<br>
+      ⏳ <b>Almacén</b> — pendiente, se conectará a Inventario PIN.<br>
+      ⏳ <b>Choferes</b> — pendiente, se conectará al checklist digital de flotilla.<br><br>
+      Los rangos Rojo/Amarillo/Verde/Superverde de PIN y TAC se calculan aquí mismo con las bandas de tu Config; el valor que se compara contra esas bandas ahora sí es el número real del periodo que elijas arriba.
     </div>
     <div class="mda"><button class="btn bn" onclick="closeModal()">Entendido</button></div>
   </div>
@@ -198,7 +198,7 @@ footer.note{margin-top:24px; font-size:10.5px; color:var(--gy3); line-height:1.6
    Algunos rangos siguen marcados ahí como "PROPUESTA — validar"
    ========================================================= */
 const TIER_ORDER = ['r','a','g','sg'];
-const TIER_NAME = {r:'Rojo', a:'Amarillo', g:'Verde', sg:'Superverde'};
+const TIER_NAME = {r:'Rojo', a:'Amarillo', g:'Verde', sg:'Superverde', x:'Sin datos'};
 
 const VERACIDAD_GLOBAL = {
   lbl:"Veracidad de inventario (global — aplica a todo Almacén)",
@@ -212,33 +212,42 @@ const DATA = {
     label:"Vendedores", icon:"🧑‍💼",
     groups: {
       pin: {
-        label:"PIN", src:"Odoo PIN",
+        label:"PIN", src:"Odoo PIN", live:"pin",
         people: [
-          { name:"Luis Cardona", role:"Vendedor", kpis:[
-            { t:"Meta de venta", v:"$635,000", tier:'a', bands:"Rojo <$600K · Amarillo $620–649K · Verde $650K · Superverde ≥$660K" },
-            { t:"Clientes nuevos", v:"5", tier:'g', bands:"Rojo 1 · Amarillo 3 · Verde 5 · Superverde ≥6" },
-            { t:"Margen", v:"33.5%", tier:'a', bands:"Rojo <32% · Amarillo 33% · Verde 34% · Superverde ≥35%" },
+          { name:"Luis Cardona", liveKey:"luis cardona", role:"Vendedor", kpis:[
+            { t:"Meta de venta", field:"venta", fmt:"money", breaks:{a:600000,g:650000,sg:660000}, bands:"Rojo <$600K · Amarillo $600–649K · Verde $650–659K · Superverde ≥$660K" },
+            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", breaks:{a:3,g:5,sg:6}, bands:"Rojo <3 · Amarillo 3–4 · Verde 5 · Superverde ≥6 (nota: son clientes distintos con orden en el periodo, no necesariamente clientes nuevos)" },
+            { t:"Margen", field:"margenPct", fmt:"pct", breaks:{a:33,g:34,sg:35}, bands:"Rojo <33% · Amarillo 33% · Verde 34% · Superverde ≥35%" },
           ]},
-          { name:"Mauro Mendoza", role:"Gerencia PIN (rol dual con vendedores — pendiente aclarar con Joaquín)", kpis:[
-            { t:"Meta de venta global PIN", v:"$1,462,000", tier:'g', bands:"Rojo $1.25M · Amarillo $1.35M · Verde $1.45M · Superverde ≥$1.5M" },
-            { t:"Clientes nuevos", v:"4", tier:'sg', bands:"Rojo <1 · Amarillo 2 · Verde 3 · Superverde ≥4" },
-            { t:"Margen utilidad", v:"31%", tier:'g', bands:"Rojo <27% · Amarillo 28–29% · Verde 30% · Superverde ≥32%" },
+          { name:"Mauro Mendoza", liveKey:"mauro mendoza", role:"Gerencia PIN (rol dual con vendedores — pendiente aclarar con Joaquín)", kpis:[
+            { t:"Meta de venta global PIN", field:"venta", fmt:"money", breaks:{a:1250000,g:1450000,sg:1500000}, bands:"Rojo <$1.25M · Amarillo $1.25–1.44M · Verde $1.45–1.49M · Superverde ≥$1.5M" },
+            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", breaks:{a:2,g:3,sg:4}, bands:"Rojo <2 · Amarillo 2 · Verde 3 · Superverde ≥4 (nota: clientes distintos con orden en el periodo)" },
+            { t:"Margen utilidad", field:"margenPct", fmt:"pct", breaks:{a:28,g:30,sg:32}, bands:"Rojo <28% · Amarillo 28–29% · Verde 30–31% · Superverde ≥32%" },
           ]},
         ]
       },
       tac: {
-        label:"TAC", src:"Dashboard de Ventas TAC",
-        placeholder:true,
+        label:"TAC", src:"Dashboard de Ventas TAC (GitHub)", live:"tac",
+        placeholder:false,
+        groupGoalNote:"Meta grupal TAC (jul–dic 2026) = $500,000 fijos de Sallymari ($450K venta TAC + $50K extra) + \"venta necesitada de vendedores\", que cambia cada mes y se reparte 40% Vendedor Nuevo / 25% Mauro / 35% Luis. Cada quien se mide contra SU propia meta en pesos de ese mes — no es un total compartido. Asumiendo columnas jul→dic 2026 en orden; avísame si el orden es otro.",
         people: [
-          { name:"Sallymari Bellman", role:"Gerencia Ventas — confirmado: vende para TAC, sus cifras viven en Dashboard TAC, no en Odoo", kpis:[
-            { t:"Meta de venta", v:"$505,000", tier:'g', bands:"Rojo <$400K · Amarillo $400–475K · Verde $500K · Superverde ≥$525K (banda de tu Config; falta traer la cifra real desde Dashboard TAC)" },
-            { t:"Margen utilidad", v:"33.8%", tier:'g', bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar)" },
-            { t:"Quejas de cliente", v:"1/mes", tier:'g', bands:"Rojo 3/mes · Amarillo 2/mes · Verde 1/mes · Superverde 0" },
+          { name:"Sallymari Bellman", liveKey:"sallymari bellman", role:"Gerencia Ventas — meta fija $500,000/mes ($450K venta TAC + $50K extra)", kpis:[
+            { t:"Meta de venta", field:"venta", fmt:"money", breaks:{a:400000,g:500000,sg:525000}, bands:"Rojo <$400K · Amarillo $400–499K · Verde $500–524K · Superverde ≥$525K · fija todos los meses" },
+            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", noBands:true, bands:"Sin banda definida en Config — solo se muestra el conteo" },
+            { t:"Margen utilidad", field:"margenPct", fmt:"pct", breaks:{a:33,g:34,sg:37}, bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar)" },
           ]},
-          { name:"Vendedor TAC — ejemplo", role:"Pendiente: nombre y meta reales de otros vendedores TAC", kpis:[
-            { t:"Meta de venta", v:"$—", tier:'a', bands:"Pendiente: definir rangos Rojo/Amarillo/Verde/Superverde para TAC" },
-            { t:"Margen", v:"—%", tier:'a', bands:"Pendiente: definir meta de margen TAC" },
-            { t:"Clientes nuevos", v:"—", tier:'a', bands:"Pendiente: definir meta de clientes nuevos TAC" },
+          { name:"Mauro Mendoza", liveKey:"mauro mendoza", role:"Vende para TAC — 25% de la venta necesitada de vendedores", kpis:[
+            { t:"Meta de venta TAC (25% del mes)", field:"venta", fmt:"money", tacDynamic:"mauro", bands:"Bandas relativas a su meta del mes, misma proporción que su meta PIN ($1.25M/$1.45M/$1.5M ÷ meta)" },
+            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", noBands:true, bands:"Sin banda definida en Config" },
+            { t:"Margen", field:"margenPct", fmt:"pct", noBands:true, bands:"Sin meta de margen TAC definida" },
+          ]},
+          { name:"Luis Cardona", liveKey:"luis cardona", role:"Vende para TAC — 35% de la venta necesitada de vendedores", kpis:[
+            { t:"Meta de venta TAC (35% del mes)", field:"venta", fmt:"money", tacDynamic:"luis", bands:"Bandas relativas a su meta del mes, misma proporción que su meta PIN ($600K/$650K/$660K ÷ meta)" },
+            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", noBands:true, bands:"Sin banda definida en Config" },
+            { t:"Margen", field:"margenPct", fmt:"pct", noBands:true, bands:"Sin meta de margen TAC definida" },
+          ]},
+          { name:"Vendedor Nuevo", liveKey:null, role:"Posición vacante — 40% de la venta necesitada de vendedores", kpis:[
+            { t:"Meta de venta TAC (40% del mes)", field:"venta", fmt:"money", tacDynamic:"nuevo", bands:"Posición sin cubrir — se muestra la meta para dimensionar el hueco. Bandas supuestas 90/100/103% (aún no confirmadas)" },
           ]},
         ]
       }
@@ -304,19 +313,38 @@ function miniKpi(k){
 
 function initials(name){ return name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase(); }
 
+/* ============ RANGO DE FECHAS (real, calculado desde hoy) ============ */
+const MESES_ES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+function pad2(n){ return String(n).padStart(2,'0'); }
+function iso(d){ return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`; }
+function lastDayOfMonth(y,m){ return new Date(y, m+1, 0); }
+
+function rangeMes(){
+  const t = new Date();
+  return { desde: iso(new Date(t.getFullYear(), t.getMonth(), 1)), hasta: iso(lastDayOfMonth(t.getFullYear(), t.getMonth())) };
+}
+function rangeTrimestre(){
+  const t = new Date();
+  return { desde: iso(new Date(t.getFullYear(), t.getMonth()-2, 1)), hasta: iso(lastDayOfMonth(t.getFullYear(), t.getMonth())) };
+}
+
+// Estado global del rango seleccionado (aplica a Vendedores, único tab conectado en vivo por ahora)
+let vendRange = { mode:'mes', ...rangeMes() };
+
 function renderFilterBar(key){
+  const isLive = key === 'vendedores';
   return `<div class="fbar" id="fbar-${key}">
     <span class="fbar-label">Rango de fechas</span>
-    <button class="flt on" data-range="mes" onclick="setRange('${key}','mes',this)">Este mes</button>
-    <button class="flt" data-range="trim" onclick="setRange('${key}','trim',this)">Trimestre</button>
-    <button class="flt" data-range="custom" onclick="setRange('${key}','custom',this)">Personalizado</button>
+    <button class="flt ${vendRange.mode==='mes'?'on':''}" data-range="mes" onclick="setRange('${key}','mes',this)">Este mes</button>
+    <button class="flt ${vendRange.mode==='trim'?'on':''}" data-range="trim" onclick="setRange('${key}','trim',this)">Trimestre</button>
+    <button class="flt ${vendRange.mode==='custom'?'on':''}" data-range="custom" onclick="setRange('${key}','custom',this)">Personalizado</button>
     <span class="fsep"></span>
-    <div class="fcustom" id="fcustom-${key}">
-      <input type="date" id="fdesde-${key}" onchange="updateCustomRange('${key}')">
+    <div class="fcustom ${vendRange.mode==='custom'?'show':''}" id="fcustom-${key}">
+      <input type="date" id="fdesde-${key}" value="${vendRange.desde}" onchange="updateCustomRange('${key}')">
       <span style="font-size:11px;color:var(--tx2);">→</span>
-      <input type="date" id="fhasta-${key}" onchange="updateCustomRange('${key}')">
+      <input type="date" id="fhasta-${key}" value="${vendRange.hasta}" onchange="updateCustomRange('${key}')">
     </div>
-    <span class="finfo" id="finfo-${key}">Mostrando: <b>agosto 2026</b></span>
+    <span class="finfo" id="finfo-${key}">${isLive ? '' : '(vista de ejemplo, aún no conectado) · '}Mostrando: <b>${vendRange.desde} → ${vendRange.hasta}</b></span>
   </div>`;
 }
 
@@ -324,17 +352,146 @@ function setRange(key, range, btn){
   document.querySelectorAll(`#fbar-${key} .flt`).forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   const custom = document.getElementById(`fcustom-${key}`);
-  const info = document.getElementById(`finfo-${key}`);
-  if(range==='mes'){ custom.classList.remove('show'); info.innerHTML = 'Mostrando: <b>agosto 2026</b>'; }
-  else if(range==='trim'){ custom.classList.remove('show'); info.innerHTML = 'Mostrando: <b>jun – ago 2026</b>'; }
-  else { custom.classList.add('show'); info.innerHTML = 'Selecciona el rango →'; }
+  if(range==='mes'){ custom.classList.remove('show'); vendRange = { mode:'mes', ...rangeMes() }; }
+  else if(range==='trim'){ custom.classList.remove('show'); vendRange = { mode:'trim', ...rangeTrimestre() }; }
+  else { custom.classList.add('show'); vendRange = { mode:'custom', desde: vendRange.desde, hasta: vendRange.hasta }; }
+  document.getElementById(`finfo-${key}`).innerHTML = `Mostrando: <b>${vendRange.desde} → ${vendRange.hasta}</b>`;
+  if(key==='vendedores' && range!=='custom') refreshVendedoresLive();
 }
 
 function updateCustomRange(key){
   const d1 = document.getElementById(`fdesde-${key}`).value;
   const d2 = document.getElementById(`fhasta-${key}`).value;
-  const info = document.getElementById(`finfo-${key}`);
-  if(d1 && d2) info.innerHTML = `Mostrando: <b>${d1} → ${d2}</b>`;
+  if(!d1 || !d2) return;
+  vendRange = { mode:'custom', desde:d1, hasta:d2 };
+  document.getElementById(`finfo-${key}`).innerHTML = `Mostrando: <b>${d1} → ${d2}</b>`;
+  if(key==='vendedores') refreshVendedoresLive();
+}
+
+/* ============ META MENSUAL TAC (jul–dic 2026) ============
+   Fuente: cuadro de reparto que compartiste. "Venta necesitada de vendedores"
+   cambia cada mes y se reparte 40% Nuevo / 25% Mauro / 35% Luis. */
+const TAC_MONTHLY_NECESITADA = { 7:250899.39, 8:176756.41, 9:205916.51, 10:153561.08, 11:180629.90, 12:197095.02 };
+const TAC_SPLIT = { nuevo:0.40, mauro:0.25, luis:0.35 };
+// Bandas relativas (fracción de la meta) derivadas de sus bandas $ originales en Config,
+// aplicadas proporcionalmente a la meta TAC del mes (que cambia cada mes).
+const TAC_PCT_BANDS = {
+  luis:  { a:600000/650000,   g:1, sg:660000/650000 },   // 92.3% / 100% / 101.5%
+  mauro: { a:1250000/1450000, g:1, sg:1500000/1450000 }, // 86.2% / 100% / 103.4%
+  nuevo: { a:0.90, g:1.00, sg:1.03 }, // supuesto — su renglón en Config no traía bandas $ claras
+};
+
+function monthsInRange(desde, hasta){
+  const d0 = new Date(desde+"T00:00:00"), d1 = new Date(hasta+"T00:00:00");
+  const months = [];
+  let y = d0.getFullYear(), m = d0.getMonth()+1;
+  while(y < d1.getFullYear() || (y===d1.getFullYear() && m<=d1.getMonth()+1)){
+    months.push({y,m});
+    m++; if(m>12){ m=1; y++; }
+  }
+  return months;
+}
+
+function tacTargetForPerson(personKey, desde, hasta){
+  const months = monthsInRange(desde, hasta);
+  let necesitadaSum = 0, matched = 0, unmatched = 0;
+  months.forEach(({y,m})=>{
+    if(y===2026 && TAC_MONTHLY_NECESITADA[m]!==undefined){ necesitadaSum += TAC_MONTHLY_NECESITADA[m]; matched++; }
+    else unmatched++;
+  });
+  if(matched===0) return null;
+  return { target: necesitadaSum * TAC_SPLIT[personKey], matched, unmatched };
+}
+
+const LIVE_ENDPOINTS = { pin: "/.netlify/functions/odoo-ventas", tac: "/.netlify/functions/tac-ventas" };
+const liveCache = { pin:null, tac:null }; // último resultado por grupo: {porVendedor:{liveKey:{venta,margenPct,clientesUnicos}}, extra:[nombres no reconocidos], error:null|string, loading:bool}
+
+function normNombre(s){
+  return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+}
+
+async function fetchLiveGroup(liveKey){
+  liveCache[liveKey] = { ...(liveCache[liveKey]||{}), loading:true, error:null };
+  try {
+    const url = `${LIVE_ENDPOINTS[liveKey]}?desde=${vendRange.desde}&hasta=${vendRange.hasta}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if(!res.ok || data.error) throw new Error(data.error || `HTTP ${res.status}`);
+    const porVendedor = {};
+    (data.vendedores||[]).forEach(v=>{ porVendedor[normNombre(v.nombre)] = v; });
+    const conocidos = new Set();
+    Object.values(DATA.vendedores.groups).forEach(g=>{
+      if(g.live===liveKey) g.people.forEach(p=>conocidos.add(normNombre(p.liveKey)));
+    });
+    const extra = (data.vendedores||[]).map(v=>v.nombre).filter(n=>!conocidos.has(normNombre(n)));
+    liveCache[liveKey] = { porVendedor, extra, loading:false, error:null };
+  } catch(e){
+    liveCache[liveKey] = { porVendedor:{}, extra:[], loading:false, error:String(e.message||e) };
+  }
+}
+
+async function refreshVendedoresLive(){
+  // pinta el estado "cargando" de inmediato si estamos parados en vendedores
+  if(document.getElementById('tabContent') && document.querySelector('.tab.on')?.dataset.key === 'vendedores'){
+    document.getElementById("tabContent").innerHTML = renderVendedores();
+  }
+  await Promise.all([fetchLiveGroup('pin'), fetchLiveGroup('tac')]);
+  if(document.querySelector('.tab.on')?.dataset.key === 'vendedores'){
+    document.getElementById("tabContent").innerHTML = renderVendedores();
+  }
+  renderStrip();
+}
+
+function evalTier(value, breaks){
+  if(value===null || value===undefined || isNaN(value)) return null;
+  if(value>=breaks.sg) return 'sg';
+  if(value>=breaks.g) return 'g';
+  if(value>=breaks.a) return 'a';
+  return 'r';
+}
+
+function fmtValue(value, fmt){
+  if(value===null || value===undefined) return "Sin datos";
+  if(fmt==='money') return '$' + Math.round(value).toLocaleString('es-MX');
+  if(fmt==='pct') return value.toFixed(1) + '%';
+  return String(value);
+}
+
+// Resuelve un KPI "vivo" contra el cache; si no hay dato, regresa tier null (se pinta gris)
+function resolveKpi(k, liveGroupKey, liveKey){
+  const cache = liveCache[liveGroupKey];
+  if(!cache || cache.loading) return { t:k.t, v:"Cargando…", tier:'x', bands:k.bands, loading:true };
+  if(cache.error) return { t:k.t, v:"Error de conexión", tier:'x', bands:k.bands, error:cache.error };
+
+  if(k.tacDynamic){
+    const info = tacTargetForPerson(k.tacDynamic, vendRange.desde, vendRange.hasta);
+    if(!info) return { t:k.t, v:"Sin meta definida (la tabla solo cubre jul–dic 2026)", tier:'x', bands:k.bands };
+    const pct = TAC_PCT_BANDS[k.tacDynamic];
+    const breaks = { a: info.target*pct.a, g: info.target*pct.g, sg: info.target*pct.sg };
+    const row = cache.porVendedor[normNombre(liveKey)];
+    const raw = row ? row[k.field] : null;
+    const metaTxt = `Meta este periodo: $${Math.round(info.target).toLocaleString('es-MX')}${info.unmatched?' (parte del rango cae fuera de jul–dic, no contado)':''} · ${k.bands}`;
+    if(raw===null || raw===undefined) return { t:k.t, v:`Sin venta registrada (meta: $${Math.round(info.target).toLocaleString('es-MX')})`, tier:'x', bands:metaTxt };
+    const tier = evalTier(raw, breaks) || 'x';
+    return { t:k.t, v:`${fmtValue(raw,k.fmt)} de $${Math.round(info.target).toLocaleString('es-MX')}`, tier, bands:metaTxt };
+  }
+
+  let raw;
+  if(k.groupSum){
+    let sum = 0, any = false;
+    k.groupSum.forEach(lk=>{
+      const row = cache.porVendedor[normNombre(lk)];
+      if(row && row[k.field]!==null && row[k.field]!==undefined){ sum += row[k.field]; any = true; }
+    });
+    raw = any ? sum : null;
+  } else {
+    const row = cache.porVendedor[normNombre(liveKey)];
+    raw = row ? row[k.field] : null;
+  }
+  if(raw===null || raw===undefined) return { t:k.t, v:"Sin datos este periodo", tier:'x', bands:k.bands };
+  if(k.noBands) return { t:k.t, v:fmtValue(raw, k.fmt) + (k.pendingLabel ? ` — ${k.pendingLabel}` : " (sin meta individual)"), tier:'x', bands:k.bands };
+  const tier = evalTier(raw, k.breaks) || 'x';
+  return { t:k.t, v: fmtValue(raw, k.fmt), tier, bands:k.bands };
 }
 
 function renderGlobalBanner(){
@@ -353,14 +510,17 @@ function tierTrackWide(tier){
   const idx = tierIndex(tier);
   return `<div class="gb-track">${TIER_ORDER.map((t,i)=>`<div class="gb-seg" style="background:${i===idx?segColor(t):'var(--gy2)'};"></div>`).join("")}</div>`;
 }
-function segColor(t){ return t==='r'?'var(--rd)':t==='a'?'var(--am)':t==='g'?'var(--g)':'var(--sg)'; }
-function tierBg(t){ return t==='r'?'var(--rdbg)':t==='a'?'var(--ambg)':t==='g'?'var(--gbg)':'var(--sgbg)'; }
-function tierFg(t){ return t==='r'?'#991b1b':t==='a'?'#92400e':t==='g'?'var(--gd)':'var(--sg)'; }
+function segColor(t){ return t==='r'?'var(--rd)':t==='a'?'var(--am)':t==='g'?'var(--g)':t==='sg'?'var(--sg)':'var(--gy3)'; }
+function tierBg(t){ return t==='r'?'var(--rdbg)':t==='a'?'var(--ambg)':t==='g'?'var(--gbg)':t==='sg'?'var(--sgbg)':'var(--gy)'; }
+function tierFg(t){ return t==='r'?'#991b1b':t==='a'?'#92400e':t==='g'?'var(--gd)':t==='sg'?'var(--sg)':'var(--gy3)'; }
 
-function renderPeopleGrid(people, src){
+function renderPeopleGrid(people, src, liveGroupKey){
   const cards = people.map(p=>{
-    const primary = p.kpis[0];
-    const rest = p.kpis.slice(1);
+    const kpis = p.kpis.map(k => k.field ? resolveKpi(k, liveGroupKey, p.liveKey) : k);
+    const primary = kpis[0];
+    const rest = kpis.slice(1);
+    const primaryColor = segColor(primary.tier);
+    const primaryLabel = primary.tier==='x' ? primary.v : `${primary.v} · ${TIER_NAME[primary.tier]}`;
     return `<div class="pc">
       <div class="pc-head">
         <div class="pc-av">${initials(p.name)}</div>
@@ -369,7 +529,7 @@ function renderPeopleGrid(people, src){
       <div class="pc-primary">
         <div class="pc-primary-row">
           <span class="pc-primary-lbl">${primary.t}</span>
-          <span class="pc-primary-val" style="color:${segColor(primary.tier)};">${primary.v} · ${TIER_NAME[primary.tier]}</span>
+          <span class="pc-primary-val" style="color:${primaryColor};">${primaryLabel}</span>
         </div>
         ${tierTrack(primary.tier)}
         <div class="tier-caption"><span>${primary.bands}</span></div>
@@ -393,8 +553,12 @@ function renderVendedores(){
       return `<button class="subtab ${k===activeVendGroup?'on':''}" onclick="setVendGroup('${k}')">${grp.label} <span class="cnt">${grp.people.length}</span></button>`;
     }).join("")}
   </div>`;
-  const note = g.placeholder ? `<div class="subgroup-note show">⚠️ Sallymari Bellman ya está confirmada (vende para TAC, fuente: Dashboard TAC). Falta el resto del equipo de ventas TAC — comparte esos nombres y metas y los agrego igual que a ella.</div>` : "";
-  return `${subtabs}${note}${renderFilterBar('vendedores')}${renderPeopleGrid(g.people, g.src)}`;
+  const cache = liveCache[g.live];
+  let note = "";
+  if(g.groupGoalNote) note = `<div class="subgroup-note show">ℹ️ ${g.groupGoalNote}</div>`;
+  if(cache && cache.error) note += `<div class="subgroup-note show" style="background:var(--rdbg);border-color:rgba(231,76,60,.3);color:#991b1b;">⚠️ No se pudo leer datos en vivo (${g.label}): ${cache.error}</div>`;
+  if(cache && !cache.loading && !cache.error && cache.extra && cache.extra.length) note += `<div class="subgroup-note show">ℹ️ Odoo/Dashboard TAC también tiene ventas a nombre de: <b>${cache.extra.join(", ")}</b> — no configurados aquí todavía, vale la pena revisar si deben tener tarjeta propia.</div>`;
+  return `${subtabs}${note}${renderFilterBar('vendedores')}${renderPeopleGrid(g.people, g.src, g.live)}`;
 }
 
 function setVendGroup(key){
@@ -405,6 +569,7 @@ function setVendGroup(key){
 function renderTab(key){
   if(key==='vendedores'){
     document.getElementById("tabContent").innerHTML = renderVendedores();
+    if(!liveCache.pin && !liveCache.tac) refreshVendedoresLive();
     return;
   }
   const area = DATA[key];
@@ -429,8 +594,42 @@ function collectStatuses(){
   const counts = {r:0,a:0,g:0,sg:0};
   counts[VERACIDAD_GLOBAL.tier]++;
   Object.values(DATA.vendedores.groups).forEach(g=>{
-    if(g.placeholder) return; // no contar marcadores de ejemplo en el semáforo
-    g.people.forEach(p=>p.kpis.forEach(k=>{ counts[k.tier]++; }));
+    const cache = liveCache[g.live];
+    g.people.forEach(p=>p.kpis.forEach(k=>{
+      if(k.field){
+        if(!cache || cache.loading || cache.error) return; // aún no hay dato confiable, no cuenta
+        if(k.tacDynamic){
+          const info = tacTargetForPerson(k.tacDynamic, vendRange.desde, vendRange.hasta);
+          if(!info) return;
+          const pct = TAC_PCT_BANDS[k.tacDynamic];
+          const breaks = { a: info.target*pct.a, g: info.target*pct.g, sg: info.target*pct.sg };
+          const row = cache.porVendedor[normNombre(p.liveKey)];
+          const raw = row ? row[k.field] : null;
+          if(raw===null || raw===undefined) return;
+          const t = evalTier(raw, breaks);
+          if(t) counts[t]++;
+          return;
+        }
+        if(k.noBands) return; // sin meta definida, no se puede semaforizar
+        let raw;
+        if(k.groupSum){
+          let sum = 0, any = false;
+          k.groupSum.forEach(lk=>{
+            const row = cache.porVendedor[normNombre(lk)];
+            if(row && row[k.field]!==null && row[k.field]!==undefined){ sum += row[k.field]; any = true; }
+          });
+          raw = any ? sum : null;
+        } else {
+          const row = cache.porVendedor[normNombre(p.liveKey)];
+          raw = row ? row[k.field] : null;
+        }
+        if(raw===null || raw===undefined) return;
+        const t = evalTier(raw, k.breaks);
+        if(t) counts[t]++;
+      } else {
+        counts[k.tier]++;
+      }
+    }));
   });
   ["almacen","choferes"].forEach(key=>{
     DATA[key].people.forEach(p=>p.kpis.forEach(k=>{ counts[k.tier]++; }));
@@ -455,7 +654,7 @@ function openModal(){ document.getElementById("modalInfo").classList.add("on"); 
 function closeModal(){ document.getElementById("modalInfo").classList.remove("on"); }
 document.getElementById("modalInfo").addEventListener("click", closeModal);
 
-document.getElementById("hdrSub").textContent = "Última actualización: 10/ago/2026, 07:15 hrs";
+document.getElementById("hdrSub").textContent = "Vendedores PIN y TAC en vivo · Almacén y Choferes con datos de ejemplo";
 
 renderTabs();
 renderTab("vendedores");
