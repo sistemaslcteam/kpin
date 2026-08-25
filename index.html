@@ -229,12 +229,12 @@ const DATA = {
       tac: {
         label:"TAC", src:"Dashboard de Ventas TAC (GitHub)", live:"tac",
         placeholder:false,
-        groupGoalNote:"Meta grupal TAC (jul–dic 2026) = $500,000 fijos de Sallymari ($450K venta TAC + $50K extra) + \"venta necesitada de vendedores\", que cambia cada mes y se reparte 40% Vendedor Nuevo / 25% Mauro / 35% Luis. Cada quien se mide contra SU propia meta en pesos de ese mes — no es un total compartido. Asumiendo columnas jul→dic 2026 en orden; avísame si el orden es otro.",
+        groupGoalNote:"Meta grupal TAC (jul–dic 2026) = $500,000 de Sallymari (medida vía la cuenta TAC Juárez, base $450K + $50K extra, éste último sin fuente de datos aún) + \"venta necesitada de vendedores\", que cambia cada mes y se reparte 40% Vendedor Nuevo / 25% Mauro / 35% Luis. Cada quien se mide contra SU propia meta en pesos de ese mes — no es un total compartido. Asumiendo columnas jul→dic 2026 en orden; avísame si el orden es otro.",
         people: [
-          { name:"Sallymari Bellman", liveKey:"sallymari bellman", role:"Gerencia Ventas — meta fija $500,000/mes ($450K venta TAC + $50K extra)", kpis:[
-            { t:"Meta de venta", field:"venta", fmt:"money", breaks:{a:400000,g:500000,sg:525000}, bands:"Rojo <$400K · Amarillo $400–499K · Verde $500–524K · Superverde ≥$525K · fija todos los meses" },
-            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", noBands:true, bands:"Sin banda definida en Config — solo se muestra el conteo" },
-            { t:"Margen utilidad", field:"margenPct", fmt:"pct", breaks:{a:33,g:34,sg:37}, bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar)" },
+          { name:"Sallymari Bellman", liveKey:"tac juarez", role:"Gerencia Ventas — su meta se mide vía la cuenta TAC Juárez ($450K base) + $50K extra (fuente de datos aún no definida)", kpis:[
+            { t:"Venta TAC Juárez (base $450K)", field:"venta", fmt:"money", breaks:{a:360000,g:450000,sg:472500}, bands:"Bandas escaladas a $450K desde su banda original de $500K · Rojo <$360K · Amarillo $360–449K · Verde $450–472K · Superverde ≥$472.5K · fija todos los meses. Los $50K extra se miden aparte, aún sin fuente de datos conectada." },
+            { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", noBands:true, bands:"Sin banda definida en Config — solo se muestra el conteo (cuenta TAC Juárez)" },
+            { t:"Margen utilidad", field:"margenPct", fmt:"pct", breaks:{a:33,g:34,sg:37}, bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar) · cuenta TAC Juárez" },
           ]},
           { name:"Mauro Mendoza", liveKey:"mauro mendoza", role:"Vende para TAC — 25% de la venta necesitada de vendedores", kpis:[
             { t:"Meta de venta TAC (25% del mes)", field:"venta", fmt:"money", tacDynamic:"mauro", bands:"Bandas relativas a su meta del mes, misma proporción que su meta PIN ($1.25M/$1.45M/$1.5M ÷ meta)" },
