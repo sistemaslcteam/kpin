@@ -229,10 +229,11 @@ const DATA = {
       tac: {
         label:"TAC", src:"Dashboard de Ventas TAC (GitHub)", live:"tac",
         placeholder:false,
-        groupGoalNote:"Meta grupal TAC (jul–dic 2026) = $500,000 de Sallymari (medida vía la cuenta TAC Juárez, base $450K + $50K extra, éste último sin fuente de datos aún) + \"venta necesitada de vendedores\", que cambia cada mes y se reparte 40% Vendedor Nuevo / 25% Mauro / 35% Luis. Cada quien se mide contra SU propia meta en pesos de ese mes — no es un total compartido. Asumiendo columnas jul→dic 2026 en orden; avísame si el orden es otro.",
+        groupGoalNote:"Meta grupal TAC (jul–dic 2026) = $500,000 de Sallymari ($450K vía cuenta TAC Juárez + $50K vía venta a su nombre personal) + \"venta necesitada de vendedores\", que cambia cada mes y se reparte 40% Vendedor Nuevo / 25% Mauro / 35% Luis. Cada quien se mide contra SU propia meta en pesos de ese mes — no es un total compartido. Asumiendo columnas jul→dic 2026 en orden; avísame si el orden es otro.",
         people: [
-          { name:"Sallymari Bellman", liveKey:"tac juarez", role:"Gerencia Ventas — su meta se mide vía la cuenta TAC Juárez ($450K base) + $50K extra (fuente de datos aún no definida)", kpis:[
-            { t:"Venta TAC Juárez (base $450K)", field:"venta", fmt:"money", breaks:{a:360000,g:450000,sg:472500}, bands:"Bandas escaladas a $450K desde su banda original de $500K · Rojo <$360K · Amarillo $360–449K · Verde $450–472K · Superverde ≥$472.5K · fija todos los meses. Los $50K extra se miden aparte, aún sin fuente de datos conectada." },
+          { name:"Sallymari Bellman", liveKey:"tac juarez", role:"Gerencia Ventas — su meta se mide vía la cuenta TAC Juárez ($450K base) + venta a su nombre ($50K extra)", kpis:[
+            { t:"Venta TAC Juárez (base $450K)", field:"venta", fmt:"money", breaks:{a:360000,g:450000,sg:472500}, bands:"Bandas escaladas a $450K desde su banda original de $500K · Rojo <$360K · Amarillo $360–449K · Verde $450–472K · Superverde ≥$472.5K · fija todos los meses." },
+            { t:"Venta extra a su nombre (base $50K)", field:"venta", fmt:"money", overrideLiveKey:"sallymari bellman", breaks:{a:40000,g:50000,sg:52500}, bands:"Bandas escaladas a $50K desde su banda original de $500K · Rojo <$40K · Amarillo $40–49K · Verde $50–52K · Superverde ≥$52.5K · ventas registradas a su nombre personal, fuera de la cuenta TAC Juárez." },
             { t:"Clientes atendidos", field:"clientesUnicos", fmt:"num", noBands:true, bands:"Sin banda definida en Config — solo se muestra el conteo (cuenta TAC Juárez)" },
             { t:"Margen utilidad", field:"margenPct", fmt:"pct", breaks:{a:33,g:34,sg:37}, bands:"Rojo <33% · Amarillo ≤33% · Verde ≤34% · Superverde desv.≤3% (banda propuesta, validar) · cuenta TAC Juárez" },
           ]},
@@ -421,7 +422,10 @@ async function fetchLiveGroup(liveKey){
     (data.vendedores||[]).forEach(v=>{ porVendedor[normNombre(v.nombre)] = v; });
     const conocidos = new Set();
     Object.values(DATA.vendedores.groups).forEach(g=>{
-      if(g.live===liveKey) g.people.forEach(p=>conocidos.add(normNombre(p.liveKey)));
+      if(g.live===liveKey) g.people.forEach(p=>{
+        conocidos.add(normNombre(p.liveKey));
+        p.kpis.forEach(k=>{ if(k.overrideLiveKey) conocidos.add(normNombre(k.overrideLiveKey)); });
+      });
     });
     const extra = (data.vendedores||[]).map(v=>v.nombre).filter(n=>!conocidos.has(normNombre(n)));
     liveCache[liveKey] = { porVendedor, extra, loading:false, error:null };
@@ -516,7 +520,7 @@ function tierFg(t){ return t==='r'?'#991b1b':t==='a'?'#92400e':t==='g'?'var(--gd
 
 function renderPeopleGrid(people, src, liveGroupKey){
   const cards = people.map(p=>{
-    const kpis = p.kpis.map(k => k.field ? resolveKpi(k, liveGroupKey, p.liveKey) : k);
+    const kpis = p.kpis.map(k => k.field ? resolveKpi(k, liveGroupKey, k.overrideLiveKey || p.liveKey) : k);
     const primary = kpis[0];
     const rest = kpis.slice(1);
     const primaryColor = segColor(primary.tier);
@@ -620,7 +624,7 @@ function collectStatuses(){
           });
           raw = any ? sum : null;
         } else {
-          const row = cache.porVendedor[normNombre(p.liveKey)];
+          const row = cache.porVendedor[normNombre(k.overrideLiveKey || p.liveKey)];
           raw = row ? row[k.field] : null;
         }
         if(raw===null || raw===undefined) return;
